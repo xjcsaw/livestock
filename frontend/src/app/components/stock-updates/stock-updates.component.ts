@@ -1,6 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+interface Stock {
+  symbol: string;
+  price: number;
+  priceChange: number;
+  priceChangePercent: number;
+  high24h: number;
+  low24h: number;
+  volume: number;
+  lastUpdate: string;
+}
+
 @Component({
   selector: 'app-stock-updates',
   templateUrl: './stock-updates.component.html',
@@ -9,7 +20,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class StockUpdatesComponent implements OnInit, OnDestroy {
-  stockData: { symbol: string, price: number } | null = null;
+  stocks: Stock[] = [];
   eventSource: EventSource | null = null;
 
   constructor() { }
@@ -24,10 +35,10 @@ export class StockUpdatesComponent implements OnInit, OnDestroy {
 
   connectToEventStream(): void {
     this.eventSource = new EventSource('/api/stocks/stream');
-    
+
     this.eventSource.addEventListener('stock-update', (event: any) => {
-      this.stockData = JSON.parse(event.data);
-      console.log('Received stock update:', this.stockData);
+      this.stocks = JSON.parse(event.data);
+      console.log('Received stock updates:', this.stocks);
     });
 
     this.eventSource.onerror = (error) => {

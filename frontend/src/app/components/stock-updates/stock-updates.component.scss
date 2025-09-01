@@ -1,60 +1,123 @@
 .stock-updates-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #0b0e11;
+  color: #eaecef;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.binance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #232a32;
+  margin-bottom: 20px;
+
   h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    color: #f0b90b; // Binance yellow
+    margin: 0;
   }
 }
 
-.stock-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-  }
-  
-  .stock-header {
-    margin-bottom: 15px;
-    
-    .stock-symbol {
-      font-size: 24px;
-      font-weight: bold;
-      color: #2c3e50;
+.market-table-container {
+  overflow-x: auto;
+}
+
+.market-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 16px 12px;
+    text-align: right;
+    border-bottom: 1px solid #232a32;
+
+    &:first-child {
+      text-align: left;
+      padding-left: 16px;
+    }
+
+    &:last-child {
+      padding-right: 16px;
     }
   }
-  
-  .stock-body {
-    .stock-price {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      .price-value {
-        font-size: 36px;
-        font-weight: bold;
-        color: #27ae60;
-      }
+
+  th {
+    font-size: 12px;
+    font-weight: 500;
+    color: #848e9c;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #1e2329;
+      cursor: pointer;
     }
+  }
+
+  .symbol-cell {
+    .symbol-name {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  .price-cell {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .change-cell {
+    .change-value {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      display: inline-block;
+      min-width: 68px;
+      text-align: center;
+    }
+  }
+
+  .high-cell, .low-cell, .volume-cell {
+    color: #848e9c;
+    font-size: 14px;
+  }
+}
+
+.positive {
+  color: #0ecb81 !important; // Binance green
+
+  .change-value {
+    background-color: rgba(14, 203, 129, 0.1);
+  }
+}
+
+.negative {
+  color: #f6465d !important; // Binance red
+
+  .change-value {
+    background-color: rgba(246, 70, 93, 0.1);
   }
 }
 
 .loading-message {
   text-align: center;
-  padding: 20px;
-  background-color: #f8f9fa;
+  padding: 40px 20px;
+  background-color: #1e2329;
   border-radius: 8px;
-  
+
   p {
-    color: #6c757d;
+    color: #848e9c;
     font-style: italic;
   }
 }

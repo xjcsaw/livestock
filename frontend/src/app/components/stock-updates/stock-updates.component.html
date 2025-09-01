@@ -1,18 +1,38 @@
 <div class="stock-updates-container">
-  <h2>Live Stock Updates</h2>
-  
-  <div class="stock-card" *ngIf="stockData">
-    <div class="stock-header">
-      <span class="stock-symbol">{{ stockData.symbol }}</span>
-    </div>
-    <div class="stock-body">
-      <div class="stock-price">
-        <span class="price-value">${{ stockData.price.toFixed(2) }}</span>
-      </div>
-    </div>
+  <div class="binance-header">
+    <h2>Cryptocurrency Market</h2>
   </div>
 
-  <div class="loading-message" *ngIf="!stockData">
-    <p>Waiting for stock updates...</p>
+  <div class="market-table-container" *ngIf="stocks && stocks.length > 0">
+    <table class="market-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th>24h High</th>
+          <th>24h Low</th>
+          <th>Volume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks" [ngClass]="{'positive': stock.priceChange >= 0, 'negative': stock.priceChange < 0}">
+          <td class="symbol-cell">
+            <div class="symbol-name">{{ stock.symbol }}</div>
+          </td>
+          <td class="price-cell">{{ stock.price | number:'1.2-8' }}</td>
+          <td class="change-cell" [ngClass]="{'positive': stock.priceChange >= 0, 'negative': stock.priceChange < 0}">
+            <div class="change-value">{{ stock.priceChangePercent | number:'1.2-2' }}%</div>
+          </td>
+          <td class="high-cell">{{ stock.high24h | number:'1.2-8' }}</td>
+          <td class="low-cell">{{ stock.low24h | number:'1.2-8' }}</td>
+          <td class="volume-cell">{{ stock.volume | number:'1.0-0' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="loading-message" *ngIf="!stocks || stocks.length === 0">
+    <p>Waiting for cryptocurrency updates...</p>
   </div>
 </div>
