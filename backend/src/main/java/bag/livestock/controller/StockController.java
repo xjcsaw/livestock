@@ -25,6 +25,10 @@ public class StockController {
             super();
         }
 
+        public CustomSseEmitter(Long timeout) {
+            super(timeout);
+        }
+
         @Override
         protected void extendResponse(ServerHttpResponse outputMessage) {
             super.extendResponse(outputMessage);
@@ -34,7 +38,8 @@ public class StockController {
 
     @GetMapping(path = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE + ";charset=UTF-8")
     public SseEmitter streamStockPrices() {
-        SseEmitter emitter = new CustomSseEmitter();
+        // Set timeout to 1 hour (3600000 milliseconds)
+        SseEmitter emitter = new CustomSseEmitter(3600000L);
         emitter.onCompletion(() -> emitters.remove(emitter));
         emitter.onTimeout(() -> emitters.remove(emitter));
 
