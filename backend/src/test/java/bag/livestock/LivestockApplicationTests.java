@@ -1,4 +1,4 @@
-package bag.livestock.livestock;
+package bag.livestock;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
