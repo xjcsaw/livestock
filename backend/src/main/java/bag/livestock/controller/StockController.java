@@ -66,6 +66,6 @@ public class StockController {
     private String generateRandomStockJson() {
         // Dummy data for demo purposes
         double price = 180 + Math.random() * 10;
-        return "{\"symbol\":\"AAPL\",\"price\":" + String.format("%.2f", price) + "}";
+        return "{\"symbol\":\"AAPL\",\"price\":" + String.format(java.util.Locale.US, "%.2f", price) + "}";
     }
 }

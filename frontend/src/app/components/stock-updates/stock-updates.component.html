@@ -1,0 +1,18 @@
+<div class="stock-updates-container">
+  <h2>Live Stock Updates</h2>
+  
+  <div class="stock-card" *ngIf="stockData">
+    <div class="stock-header">
+      <span class="stock-symbol">{{ stockData.symbol }}</span>
+    </div>
+    <div class="stock-body">
+      <div class="stock-price">
+        <span class="price-value">${{ stockData.price.toFixed(2) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-message" *ngIf="!stockData">
+    <p>Waiting for stock updates...</p>
+  </div>
+</div>
