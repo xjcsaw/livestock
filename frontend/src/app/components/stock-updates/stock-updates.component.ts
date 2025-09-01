@@ -22,11 +22,41 @@ interface Stock {
 export class StockUpdatesComponent implements OnInit, OnDestroy {
   stocks: Stock[] = [];
   eventSource: EventSource | null = null;
+  sortColumn: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor() { }
 
   ngOnInit(): void {
     this.connectToEventStream();
+  }
+
+  sortData(column: string): void {
+    // If clicking the same column, toggle sort direction
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // New column, default to ascending
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    // Sort the stocks array
+    this.stocks = [...this.stocks].sort((a, b) => {
+      const valueA = a[column as keyof Stock];
+      const valueB = b[column as keyof Stock];
+
+      // Handle string comparison separately
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        return this.sortDirection === 'asc' 
+          ? valueA.localeCompare(valueB) 
+          : valueB.localeCompare(valueA);
+      }
+
+      // Handle numeric comparison
+      const comparison = valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+      return this.sortDirection === 'asc' ? comparison : -comparison;
+    });
   }
 
   ngOnDestroy(): void {
@@ -37,8 +67,14 @@ export class StockUpdatesComponent implements OnInit, OnDestroy {
     this.eventSource = new EventSource('/api/stocks/stream');
 
     this.eventSource.addEventListener('stock-update', (event: any) => {
-      this.stocks = JSON.parse(event.data);
-      console.log('Received stock updates:', this.stocks);
+      const newStocks = JSON.parse(event.data);
+      console.log('Received stock updates:', newStocks);
+
+      // Update stocks and maintain current sort if any
+      this.stocks = newStocks;
+      if (this.sortColumn) {
+        this.sortData(this.sortColumn);
+      }
     });
 
     this.eventSource.onerror = (error) => {

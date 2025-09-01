@@ -54,6 +54,19 @@
     color: #848e9c;
     text-transform: uppercase;
     white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+
+    &:hover {
+      color: #f0b90b; // Binance yellow on hover
+    }
+
+    .sort-indicator {
+      margin-left: 5px;
+      font-size: 10px;
+      color: #f0b90b; // Binance yellow for indicators
+    }
   }
 
   tbody tr {

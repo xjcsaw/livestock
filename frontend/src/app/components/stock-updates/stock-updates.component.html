@@ -7,12 +7,42 @@
     <table class="market-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>24h Change</th>
-          <th>24h High</th>
-          <th>24h Low</th>
-          <th>Volume</th>
+          <th (click)="sortData('symbol')">
+            Name
+            <span *ngIf="sortColumn === 'symbol'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('price')">
+            Price
+            <span *ngIf="sortColumn === 'price'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('priceChangePercent')">
+            24h Change
+            <span *ngIf="sortColumn === 'priceChangePercent'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('high24h')">
+            24h High
+            <span *ngIf="sortColumn === 'high24h'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('low24h')">
+            24h Low
+            <span *ngIf="sortColumn === 'low24h'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
+          <th (click)="sortData('volume')">
+            Volume
+            <span *ngIf="sortColumn === 'volume'" class="sort-indicator">
+              {{ sortDirection === 'asc' ? '▲' : '▼' }}
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody>
