@@ -41,7 +41,13 @@
       </tr>
     </thead>
     <tbody>
-      <app-stock-row *ngFor="let stock of stocks" [stock]="stock"></app-stock-row>
+    @for(stock of stocks; track stock.symbol) {
+      <app-stock-row [stock]="stock"></app-stock-row>
+    } @empty {
+      <tr>
+        <td colspan="6">No stocks found.</td>
+      </tr>
+    }
     </tbody>
   </table>
 </div>

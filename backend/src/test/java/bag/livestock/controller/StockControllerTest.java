@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StockControllerTest {
+class StockControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -26,13 +26,13 @@ public class StockControllerTest {
     private StockController stockController;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         // Verify that the controller is properly registered in the Spring context
         assert stockController != null;
     }
 
     @Test
-    public void testStreamEndpoint() throws Exception {
+    void testStreamEndpoint() throws Exception {
         // Test that the /api/stocks/stream endpoint returns an SseEmitter
         // and sets the appropriate content type header
         mockMvc.perform(get("/api/stocks/stream"))
@@ -44,7 +44,7 @@ public class StockControllerTest {
     private StockService stockService;
 
     @Test
-    public void testStockServiceGeneratesValidStocks() {
+    void testStockServiceGeneratesValidStocks() {
         // Test that the StockService can generate stocks
         assertDoesNotThrow(() -> {
             // This will trigger the generation of random stocks

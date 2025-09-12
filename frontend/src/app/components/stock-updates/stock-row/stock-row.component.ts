@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, input, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Stock {
@@ -20,5 +20,14 @@ interface Stock {
   imports: [CommonModule]
 })
 export class StockRowComponent {
-  @Input() stock!: Stock;
+  readonly stock = input<Stock>({
+    symbol: '',
+    price: 0,
+    priceChange: 0,
+    priceChangePercent: 0,
+    high24h: 0,
+    low24h: 0,
+    volume: 0,
+    lastUpdate: ''
+  });
 }
