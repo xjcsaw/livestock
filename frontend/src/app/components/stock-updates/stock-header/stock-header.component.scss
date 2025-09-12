@@ -1,0 +1,15 @@
+.binance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #232a32;
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #f0b90b; // Binance yellow
+    margin: 0;
+  }
+}

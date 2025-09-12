@@ -1,68 +1,13 @@
 <div class="stock-updates-container">
-  <div class="binance-header">
-    <h2>Cryptocurrency Market</h2>
-  </div>
+  <app-stock-header></app-stock-header>
 
-  <div class="market-table-container" *ngIf="stocks && stocks.length > 0">
-    <table class="market-table">
-      <thead>
-        <tr>
-          <th (click)="sortData('symbol')">
-            Name
-            <span *ngIf="sortColumn === 'symbol'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-          <th (click)="sortData('price')">
-            Price
-            <span *ngIf="sortColumn === 'price'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-          <th (click)="sortData('priceChangePercent')">
-            24h Change
-            <span *ngIf="sortColumn === 'priceChangePercent'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-          <th (click)="sortData('high24h')">
-            24h High
-            <span *ngIf="sortColumn === 'high24h'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-          <th (click)="sortData('low24h')">
-            24h Low
-            <span *ngIf="sortColumn === 'low24h'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-          <th (click)="sortData('volume')">
-            Volume
-            <span *ngIf="sortColumn === 'volume'" class="sort-indicator">
-              {{ sortDirection === 'asc' ? '▲' : '▼' }}
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stock of stocks" [ngClass]="{'positive': stock.priceChange >= 0, 'negative': stock.priceChange < 0}">
-          <td class="symbol-cell">
-            <div class="symbol-name">{{ stock.symbol }}</div>
-          </td>
-          <td class="price-cell">{{ stock.price | number:'1.2-8' }}</td>
-          <td class="change-cell" [ngClass]="{'positive': stock.priceChange >= 0, 'negative': stock.priceChange < 0}">
-            <div class="change-value">{{ stock.priceChangePercent | number:'1.2-2' }}%</div>
-          </td>
-          <td class="high-cell">{{ stock.high24h | number:'1.2-8' }}</td>
-          <td class="low-cell">{{ stock.low24h | number:'1.2-8' }}</td>
-          <td class="volume-cell">{{ stock.volume | number:'1.0-0' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <app-stock-table 
+    *ngIf="stocks && stocks.length > 0"
+    [stocks]="stocks"
+    [sortColumn]="sortColumn"
+    [sortDirection]="sortDirection"
+    (sort)="sortData($event)">
+  </app-stock-table>
 
-  <div class="loading-message" *ngIf="!stocks || stocks.length === 0">
-    <p>Waiting for cryptocurrency updates...</p>
-  </div>
+  <app-loading-message *ngIf="!stocks || stocks.length === 0"></app-loading-message>
 </div>

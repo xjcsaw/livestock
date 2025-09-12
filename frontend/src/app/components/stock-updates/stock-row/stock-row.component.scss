@@ -1,0 +1,56 @@
+:host {
+  display: contents; // This makes the component not create a wrapper element
+}
+
+tr {
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #1e2329;
+    cursor: pointer;
+  }
+}
+
+.symbol-cell {
+  .symbol-name {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.price-cell {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.change-cell {
+  .change-value {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-block;
+    min-width: 68px;
+    text-align: center;
+  }
+}
+
+.high-cell, .low-cell, .volume-cell {
+  color: #848e9c;
+  font-size: 14px;
+}
+
+.positive {
+  color: #0ecb81 !important; // Binance green
+
+  .change-value {
+    background-color: rgba(14, 203, 129, 0.1);
+  }
+}
+
+.negative {
+  color: #f6465d !important; // Binance red
+
+  .change-value {
+    background-color: rgba(246, 70, 93, 0.1);
+  }
+}

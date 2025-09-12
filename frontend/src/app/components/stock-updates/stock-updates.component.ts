@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StockHeaderComponent } from './stock-header/stock-header.component';
+import { StockTableComponent } from './stock-table/stock-table.component';
+import { LoadingMessageComponent } from './loading-message/loading-message.component';
 
 interface Stock {
   symbol: string;
@@ -17,7 +20,7 @@ interface Stock {
   templateUrl: './stock-updates.component.html',
   styleUrls: ['./stock-updates.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, StockHeaderComponent, StockTableComponent, LoadingMessageComponent]
 })
 export class StockUpdatesComponent implements OnInit, OnDestroy {
   stocks: Stock[] = [];

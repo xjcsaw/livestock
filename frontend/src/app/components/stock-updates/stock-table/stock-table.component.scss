@@ -1,0 +1,97 @@
+.market-table-container {
+  overflow-x: auto;
+}
+
+.market-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 16px 12px;
+    text-align: right;
+    border-bottom: 1px solid #232a32;
+
+    &:first-child {
+      text-align: left;
+      padding-left: 16px;
+    }
+
+    &:last-child {
+      padding-right: 16px;
+    }
+  }
+
+  th {
+    font-size: 12px;
+    font-weight: 500;
+    color: #848e9c;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+
+    &:hover {
+      color: #f0b90b; // Binance yellow on hover
+    }
+
+    .sort-indicator {
+      margin-left: 5px;
+      font-size: 10px;
+      color: #f0b90b; // Binance yellow for indicators
+    }
+  }
+
+  tbody tr {
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #1e2329;
+      cursor: pointer;
+    }
+  }
+
+  .symbol-cell {
+    .symbol-name {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  .price-cell {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .change-cell {
+    .change-value {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      display: inline-block;
+      min-width: 68px;
+      text-align: center;
+    }
+  }
+
+  .high-cell, .low-cell, .volume-cell {
+    color: #848e9c;
+    font-size: 14px;
+  }
+}
+
+.positive {
+  color: #0ecb81 !important; // Binance green
+
+  .change-value {
+    background-color: rgba(14, 203, 129, 0.1);
+  }
+}
+
+.negative {
+  color: #f6465d !important; // Binance red
+
+  .change-value {
+    background-color: rgba(246, 70, 93, 0.1);
+  }
+}
