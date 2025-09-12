@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StockHeaderComponent } from './stock-header/stock-header.component';
 import { StockTableComponent } from './stock-table/stock-table.component';
-import { LoadingMessageComponent } from './loading-message/loading-message.component';
+import { LoadingMessageComponent } from './loading-message/loading-message-lit-wrapper.component';
 import { Stock } from '../../models/stock.model';
 import { StockEventService } from '../../services/stock-event.service';
 import { Subscription } from 'rxjs';

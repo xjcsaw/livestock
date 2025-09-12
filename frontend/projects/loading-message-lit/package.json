@@ -1,0 +1,18 @@
+{
+  "name": "loading-message-lit",
+  "version": "0.0.1",
+  "description": "Loading message component built with LIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "lit": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}
