@@ -1,53 +1,65 @@
 <div class="market-table-container">
   <table class="market-table">
     <thead>
-      <tr>
-        <th (click)="sortData('symbol')">
-          Name
-          <span *ngIf="sortColumn() === 'symbol'" class="sort-indicator">
+    <tr>
+      <th (click)="sortData('symbol')">
+        Name
+        @if (sortColumn() === 'symbol') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-        <th (click)="sortData('price')">
-          Price
-          <span *ngIf="sortColumn() === 'price'" class="sort-indicator">
+        }
+      </th>
+      <th (click)="sortData('price')">
+        Price
+        @if (sortColumn() === 'price') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-        <th (click)="sortData('priceChangePercent')">
-          24h Change
-          <span *ngIf="sortColumn() === 'priceChangePercent'" class="sort-indicator">
+        }
+      </th>
+      <th (click)="sortData('priceChangePercent')">
+        24h Change
+        @if (sortColumn() === 'priceChangePercent') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-        <th (click)="sortData('high24h')">
-          24h High
-          <span *ngIf="sortColumn() === 'high24h'" class="sort-indicator">
+        }
+      </th>
+      <th (click)="sortData('high24h')">
+        24h High
+        @if (sortColumn() === 'high24h') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-        <th (click)="sortData('low24h')">
-          24h Low
-          <span *ngIf="sortColumn() === 'low24h'" class="sort-indicator">
+        }
+      </th>
+      <th (click)="sortData('low24h')">
+        24h Low
+        @if (sortColumn() === 'low24h') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-        <th (click)="sortData('volume')">
-          Volume
-          <span *ngIf="sortColumn() === 'volume'" class="sort-indicator">
+        }
+      </th>
+      <th (click)="sortData('volume')">
+        Volume
+        @if (sortColumn() === 'volume') {
+          <span class="sort-indicator">
             {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
-        </th>
-      </tr>
+        }
+      </th>
+    </tr>
     </thead>
     <tbody>
-    @for(stock of stocks(); track stock.symbol) {
-      <app-stock-row [stock]="stock"></app-stock-row>
-    } @empty {
-      <tr>
-        <td colspan="6">No stocks found.</td>
-      </tr>
-    }
+      @for (stock of stocks(); track stock.symbol) {
+        <app-stock-row [stock]="stock"></app-stock-row>
+      } @empty {
+        <tr>
+          <td colspan="6">No stocks found.</td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>
