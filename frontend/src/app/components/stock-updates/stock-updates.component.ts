@@ -3,17 +3,9 @@ import { CommonModule } from '@angular/common';
 import { StockHeaderComponent } from './stock-header/stock-header.component';
 import { StockTableComponent } from './stock-table/stock-table.component';
 import { LoadingMessageComponent } from './loading-message/loading-message.component';
-
-interface Stock {
-  symbol: string;
-  price: number;
-  priceChange: number;
-  priceChangePercent: number;
-  high24h: number;
-  low24h: number;
-  volume: number;
-  lastUpdate: string;
-}
+import { Stock } from '../../models/stock.model';
+import { StockEventService } from '../../services/stock-event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stock-updates',
@@ -24,14 +16,20 @@ interface Stock {
 })
 export class StockUpdatesComponent implements OnInit, OnDestroy {
   stocks: Stock[] = [];
-  eventSource: EventSource | null = null;
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
+  private stockSubscription: Subscription | null = null;
 
-  constructor() { }
+  constructor(private stockEventService: StockEventService) { }
 
   ngOnInit(): void {
-    this.connectToEventStream();
+    this.stockEventService.connectToEventStream();
+    this.stockSubscription = this.stockEventService.getStocks().subscribe(newStocks => {
+      this.stocks = newStocks;
+      if (this.sortColumn) {
+        this.sortData(this.sortColumn);
+      }
+    });
   }
 
   sortData(column: string): void {
@@ -63,35 +61,9 @@ export class StockUpdatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.disconnectEventStream();
-  }
-
-  connectToEventStream(): void {
-    this.eventSource = new EventSource('/api/stocks/stream');
-
-    this.eventSource.addEventListener('stock-update', (event: any) => {
-      const newStocks = JSON.parse(event.data);
-      console.log('Received stock updates:', newStocks);
-
-      // Update stocks and maintain current sort if any
-      this.stocks = newStocks;
-      if (this.sortColumn) {
-        this.sortData(this.sortColumn);
-      }
-    });
-
-    this.eventSource.onerror = (error) => {
-      console.error('EventSource error:', error);
-      this.disconnectEventStream();
-      // Try to reconnect after a delay
-      setTimeout(() => this.connectToEventStream(), 5000);
-    };
-  }
-
-  disconnectEventStream(): void {
-    if (this.eventSource) {
-      this.eventSource.close();
-      this.eventSource = null;
+    if (this.stockSubscription) {
+      this.stockSubscription.unsubscribe();
     }
+    this.stockEventService.disconnectEventStream();
   }
 }
