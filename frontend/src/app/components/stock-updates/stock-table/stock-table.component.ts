@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StockRowComponent } from '../stock-row/stock-row.component';
+import {Component, EventEmitter, input, Output} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {StockRowComponent} from '../stock-row/stock-row.component';
+import {SortDirection} from "./sortdirection.model";
 
 interface Stock {
   symbol: string;
@@ -21,9 +22,9 @@ interface Stock {
   imports: [CommonModule, StockRowComponent]
 })
 export class StockTableComponent {
-  @Input() stocks: Stock[] = [];
-  @Input() sortColumn: string = '';
-  @Input() sortDirection: 'asc' | 'desc' = 'asc';
+  readonly stocks = input<Stock[]>();
+  readonly sortColumn = input<string>('');
+  readonly sortDirection = input<SortDirection>('asc');
   @Output() sort = new EventEmitter<string>();
 
   sortData(column: string): void {

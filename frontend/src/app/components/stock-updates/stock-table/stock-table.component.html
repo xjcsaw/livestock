@@ -4,44 +4,44 @@
       <tr>
         <th (click)="sortData('symbol')">
           Name
-          <span *ngIf="sortColumn === 'symbol'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'symbol'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
         <th (click)="sortData('price')">
           Price
-          <span *ngIf="sortColumn === 'price'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'price'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
         <th (click)="sortData('priceChangePercent')">
           24h Change
-          <span *ngIf="sortColumn === 'priceChangePercent'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'priceChangePercent'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
         <th (click)="sortData('high24h')">
           24h High
-          <span *ngIf="sortColumn === 'high24h'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'high24h'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
         <th (click)="sortData('low24h')">
           24h Low
-          <span *ngIf="sortColumn === 'low24h'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'low24h'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
         <th (click)="sortData('volume')">
           Volume
-          <span *ngIf="sortColumn === 'volume'" class="sort-indicator">
-            {{ sortDirection === 'asc' ? '▲' : '▼' }}
+          <span *ngIf="sortColumn() === 'volume'" class="sort-indicator">
+            {{ sortDirection() === 'asc' ? '▲' : '▼' }}
           </span>
         </th>
       </tr>
     </thead>
     <tbody>
-    @for(stock of stocks; track stock.symbol) {
+    @for(stock of stocks(); track stock.symbol) {
       <app-stock-row [stock]="stock"></app-stock-row>
     } @empty {
       <tr>
