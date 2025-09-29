@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { StockUpdatesComponent } from './components/stock-updates/stock-updates.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [StockUpdatesComponent]
+  imports: [RouterModule]
 })
 export class AppComponent {
   title = 'Livestock Management';

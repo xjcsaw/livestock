@@ -1,0 +1,42 @@
+<div class="insurance-container">
+  <header>
+    <h2>Insurance Damage Reports</h2>
+    <p>Real-time insurance damage statistics from the webflux backend</p>
+  </header>
+
+  <div *ngIf="loading" class="loading-message">
+    <p>Loading insurance damage data...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>Error loading insurance damage data. Please try again later.</p>
+  </div>
+
+  <div *ngIf="!loading && !error" class="damage-table-container">
+    <table class="damage-table">
+      <thead>
+        <tr>
+          <th>Damage Type</th>
+          <th>Count</th>
+          <th>Average Amount</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let damage of damages">
+          <td>{{ damage.damageType }}</td>
+          <td>{{ damage.count }}</td>
+          <td>{{ formatCurrency(damage.averageAmount) }}</td>
+          <td>{{ damage.timestamp | date:'medium' }}</td>
+        </tr>
+        <tr *ngIf="damages.length === 0">
+          <td colspan="4" class="no-data">No insurance damage data available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-link">
+    <a routerLink="/">← Back to Home</a>
+  </div>
+</div>

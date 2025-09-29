@@ -1,0 +1,65 @@
+/* Custom styles for Livestock documentation slides */
+
+/* Global styles */
+:root {
+  --color-primary: #3b82f6;
+  --color-secondary: #10b981;
+  --color-background: #f8fafc;
+  --color-text: #1e293b;
+}
+
+/* Slide background */
+.slidev-layout {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Headings */
+h1 {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+h2, h3 {
+  color: var(--color-secondary);
+}
+
+/* Code blocks */
+pre {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Lists */
+ul li, ol li {
+  margin-bottom: 0.5em;
+}
+
+/* Emphasis on important points */
+strong {
+  color: var(--color-primary);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-primary);
+}
+
+a:hover {
+  border-bottom: 1px solid var(--color-primary);
+}
+
+/* Custom classes */
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}

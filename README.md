@@ -7,6 +7,7 @@ This document provides instructions on how to start the entire Livestock Managem
 The project is organized as a multi-module Maven project:
 - `backend`: Spring Boot application (Java 21)
 - `frontend`: Angular application (Angular 20)
+- `documentation`: Slidev presentation for project documentation
 
 ## Prerequisites
 
@@ -56,10 +57,42 @@ This approach runs the frontend and backend separately, which is better for deve
 3. Access the frontend at http://localhost:4200
    - The frontend will automatically proxy API requests to the backend at http://localhost:8080
 
+## Documentation
+
+The project includes a documentation module built with [Slidev](https://sli.dev/), which provides presentation slides explaining the project structure and functionality.
+
+To run the documentation:
+
+1. Navigate to the documentation directory:
+   ```bash
+   cd documentation
+   ```
+
+2. Install dependencies (first time only):
+   ```bash
+   npm install
+   ```
+
+3. Start the presentation in development mode:
+   ```bash
+   npm run dev
+   ```
+
+4. Access the presentation at http://localhost:3030
+
+To build the documentation for production:
+   ```bash
+   cd documentation
+   npm run build
+   ```
+
+This will generate static files in the `documentation/dist` directory that can be deployed to any web server.
+
 ## Notes
 
 - The backend runs on port 8080 by default
 - The frontend development server runs on port 4200 by default
+- The documentation server runs on port 3030 by default
 - When using Option 1, the Angular application is built and included in the Spring Boot application, so you only need to access the backend URL
 - When using Option 2, you need to access the frontend URL, which will communicate with the backend through API calls
 
