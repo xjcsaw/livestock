@@ -19,6 +19,8 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/platform-browser-dynamic": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "chart.js": "^4.4.1",
+    "ng2-charts": "^5.0.4",
     "lit": "^3.0.0",
     "loading-message-lit": "file:projects/loading-message-lit",
     "rxjs": "~7.8.0",

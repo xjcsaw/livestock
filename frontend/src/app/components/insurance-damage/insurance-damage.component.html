@@ -36,6 +36,33 @@
     </table>
   </div>
 
+  <div *ngIf="!loading && !error && damages.length > 0" class="chart-container">
+    <div class="chart-tabs">
+      <button [class.active]="activeChart === 'count'" (click)="setActiveChart('count')">Count Chart</button>
+      <button [class.active]="activeChart === 'amount'" (click)="setActiveChart('amount')">Average Amount Chart</button>
+    </div>
+
+
+
+
+    <div class="chart-wrapper">
+      <canvas baseChart
+              [type]="'bar'"
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [legend]="true">
+      </canvas>
+
+<!--      <canvas baseChart-->
+<!--        [type]="'bar'"-->
+<!--        [datasets]="barChartData"-->
+<!--        [labels]="barChartLabels"-->
+<!--        [options]="barChartOptions"-->
+<!--        [legend]="true">-->
+<!--      </canvas>-->
+    </div>
+  </div>
+
   <div class="back-link">
     <a routerLink="/">← Back to Home</a>
   </div>

@@ -3,13 +3,15 @@ import { InsuranceDamageService, InsuranceDamage } from '../../services/insuranc
 import { Subscription } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-insurance-damage',
   templateUrl: './insurance-damage.component.html',
   styleUrls: ['./insurance-damage.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgChartsModule],
   providers: [DatePipe]
 })
 export class InsuranceDamageComponent implements OnInit, OnDestroy {
@@ -17,6 +19,42 @@ export class InsuranceDamageComponent implements OnInit, OnDestroy {
   loading = true;
   error = false;
   private subscription: Subscription | null = null;
+
+  // Chart properties
+  activeChart: 'count' | 'amount' = 'count';
+
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: '#333'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: '#333'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Insurance Damage Reports'
+      }
+    }
+  };
+
+  barChartLabels: string[] = [];
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: []
+  };
 
   constructor(
     private insuranceDamageService: InsuranceDamageService,
@@ -37,6 +75,10 @@ export class InsuranceDamageComponent implements OnInit, OnDestroy {
           this.damages = [...damages];
           console.log('Component damages array updated:', this.damages);
           this.loading = false;
+
+          // Update chart data
+          this.updateChartData();
+
           // Explicitly trigger change detection
           this.cdr.detectChanges();
           console.log('Change detection triggered');
@@ -51,6 +93,63 @@ export class InsuranceDamageComponent implements OnInit, OnDestroy {
     // Fetch initial data and connect to stream
     this.insuranceDamageService.fetchAllDamages();
     this.insuranceDamageService.connectToEventStream();
+  }
+
+  /**
+   * Update chart data based on the active chart type
+   */
+  private updateChartData(): void {
+    if (this.damages.length === 0) return;
+
+    // Extract damage types for labels
+    this.barChartLabels = this.damages.map(damage => damage.damageType);
+
+    if (this.activeChart === 'count') {
+      // Update chart data for count
+      this.barChartData = {
+        labels: this.barChartLabels,
+        datasets: [{
+          data: this.damages.map(damage => damage.count),
+          label: 'Number of Reports',
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgb(54, 162, 235)',
+          borderWidth: 1
+        }]
+      };
+
+      // Update chart title
+      if (this.barChartOptions?.plugins?.title) {
+        this.barChartOptions.plugins.title.text = 'Insurance Damage Reports - Count';
+      }
+    } else {
+      // Update chart data for average amount
+      this.barChartData = {
+        labels: this.barChartLabels,
+        datasets: [{
+          data: this.damages.map(damage => damage.averageAmount),
+          label: 'Average Payout Amount (€)',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: 'rgb(255, 99, 132)',
+          borderWidth: 1
+        }]
+      };
+
+      // Update chart title
+      if (this.barChartOptions?.plugins?.title) {
+        this.barChartOptions.plugins.title.text = 'Insurance Damage Reports - Average Amount';
+      }
+    }
+
+    console.log('Chart data updated:', this.barChartData);
+  }
+
+  /**
+   * Set the active chart type and update the chart
+   */
+  setActiveChart(chartType: 'count' | 'amount'): void {
+    this.activeChart = chartType;
+    this.updateChartData();
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {
